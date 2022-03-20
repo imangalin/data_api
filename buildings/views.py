@@ -7,7 +7,7 @@ from .serializers import BuildingSerializer
 
 class BuildingList(APIView):
     def get(self, request, format=None):
-        buildings = Building.objects.all()[:15]
+        buildings = Building.objects.all()[:20]
         serializer = BuildingSerializer(buildings, many=True)
         return Response(serializer.data)
 
