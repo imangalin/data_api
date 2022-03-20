@@ -11,7 +11,7 @@ class Building (models.Model):
    class Meta:
         verbose_name = u'Строение'
         verbose_name_plural = u'Строения'
-        db_table = 'building'
+        db_table = 'data_building'
 
    def __str__(self):
         return self.id
