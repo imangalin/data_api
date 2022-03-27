@@ -14,4 +14,4 @@ class BuildingSerializer(serializers.Serializer):
 
     class Meta:
         model = Building
-        fields = ['id', 'geom', 'storey', 'household', 'people', 'year', 'region']
+        fields = '__all__'

@@ -5,6 +5,8 @@ __pycache__/
 
 # Distribution / packaging
 env/
+venv/
 build/
 *settings_local.py
 *.sqlite3
+/.idea/
