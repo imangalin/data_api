@@ -18,6 +18,10 @@ python -m venv env
 ```
 source env/bin/activate
 ```
+or for Windows
+```
+env\Scripts\activate
+```
 
 3. Install required lib, after you’ve created and activated a virtual environment
 
