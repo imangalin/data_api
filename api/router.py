@@ -1,7 +1,6 @@
 from rest_framework.routers import DefaultRouter
 
-
-from api.views import PedTrafficListViewSet
+from .views import PedTrafficListViewSet
 
 
 router = DefaultRouter()

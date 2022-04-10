@@ -38,10 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'buildings',
-    'cartraffic',
-    'pedtraffic',
     'django_filters',
+    'api',
+    'account',
 ]
 
 MIDDLEWARE = [
@@ -94,6 +93,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'account.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
