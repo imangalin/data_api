@@ -54,6 +54,8 @@ class Account(models.Model):
     request_day_limit = models.PositiveIntegerField('Лимит запросов в сутки', default=1000)
     request_month_limit = models.PositiveIntegerField('Лимит запросов в месяц', default=30000)
 
+    token = models.CharField('Токен', max_length=128, blank=True, null=True)
+
     class Meta:
         verbose_name = 'Клиент'
         verbose_name_plural = 'Клиенты'
@@ -66,7 +68,6 @@ class Account(models.Model):
         self.active = status
         self.save()
 
-    #юзера нужно создавать под капотом, проверить
     def save(self, *args, **kwargs):
         if not self.pk:
             user = get_user_model()._default_manager.create_user(username=self.name)
