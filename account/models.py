@@ -6,6 +6,7 @@ from django.db import models
 
 class AccountDataType(models.Model):
     title = models.CharField('Название', max_length=50)
+    slug = models.SlugField('Слаг для поиска', null=True)
 
     def __str__(self):
         return self.title

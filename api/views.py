@@ -6,10 +6,15 @@ from rest_framework.viewsets import ReadOnlyModelViewSet
 
 from .models import Building, CarTraffic, PedTraffic
 from .serializers import BuildingSerializer, CarTrafficSerializer, PedTrafficSerializer
+from .permissions import DataTypeAvailable, IsExpired
 
 
 class BuildingListView(APIView):
+    permission_classes = [DataTypeAvailable, IsExpired, ]
+
     def get(self, request, format=None):
+        self.request.user.account.request_total_count += 1
+        self.request.user.account.save()
         buildings = Building.objects.all()[:20]
         serializer = BuildingSerializer(buildings, many=True)
         return Response(serializer.data)
@@ -23,7 +28,11 @@ class BuildingListView(APIView):
 
 
 class CarTrafficListView(APIView):
+    permission_classes = [DataTypeAvailable, IsExpired, ]
+
     def get(self, request, format=None):
+        self.request.user.account.request_total_count += 1
+        self.request.user.account.save()
         buildings = CarTraffic.objects.all()[:15]
         serializer = CarTrafficSerializer(buildings, many=True)
         return Response(serializer.data)
@@ -37,6 +46,7 @@ class CarTrafficListView(APIView):
 
 
 class PedTrafficListViewSet(ReadOnlyModelViewSet):
+    permission_classes = [DataTypeAvailable, IsExpired, ]
     serializer_class = PedTrafficSerializer
     queryset = PedTraffic.objects.all()[:15]
     filterset_fields = ['traf_day', ]

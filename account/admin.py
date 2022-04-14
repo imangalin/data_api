@@ -7,6 +7,7 @@ from .models import Account, DataRegion, AccountDataType
 class AccountAdmin(admin.ModelAdmin):
     list_display = ('name', 'active', )
     search_fields = ('name', )
+    filter_horizontal = ('data_type', 'region', )
 
 
 @admin.register(DataRegion)
