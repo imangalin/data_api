@@ -1,7 +1,8 @@
 from django.db import models
+from django.contrib.gis.db import models
 
 class Building (models.Model):
-   geom = models.CharField(max_length=200)
+   geom = models.PointField()
    storey = models.IntegerField(u'Кол-во чего-то', default=0)
    household = models.IntegerField(u'Кол-во домохозяйств', default=0)
    people = models.IntegerField(u'Кол-во человек', default=0)
