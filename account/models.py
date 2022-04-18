@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date
 
 from django.contrib.auth import get_user_model
 from django.db import models
@@ -65,7 +65,7 @@ class Account(models.Model):
         return self.name
 
     def check_active(self):
-        status = True if self.access_expiration > datetime.today() else False
+        status = True if self.access_expiration >= date.today() else False
         self.active = status
         self.save()
 
