@@ -2,6 +2,7 @@ from datetime import date
 
 from django.contrib.auth import get_user_model
 from django.db import models
+from rest_framework.authtoken.models import Token
 
 
 class AccountDataType(models.Model):
@@ -68,6 +69,12 @@ class Account(models.Model):
         status = True if self.access_expiration >= date.today() else False
         self.active = status
         self.save()
+
+    def create_token(self):
+        if not self.token:
+            token = Token.objects.create(user=self.user)
+            self.token = token.key
+            self.save()
 
     def save(self, *args, **kwargs):
         if not self.pk:
