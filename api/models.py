@@ -1,13 +1,14 @@
 from django.db import models
+from django.contrib.gis.db import models
 
 
 class Building (models.Model):
-    geom = models.CharField(max_length=200)
+    geom = models.PointField()
     storey = models.IntegerField(u'Этажность', default=0)
     household = models.IntegerField(u'Количество домохозяйств', default=0)
     people = models.IntegerField(u'Население, человек', default=0)
     year = models.IntegerField(u'Год', default=0)
-    region = models.CharField(max_length=200)
+    region = models.MultiPolygonField()
 
     class Meta:
         verbose_name = u'Строение'
@@ -19,9 +20,9 @@ class Building (models.Model):
 
 
 class PedTraffic(models.Model):
-    geom = models.CharField(max_length=200)
+    geom = models.PointField()
     traf_day = models.IntegerField(u'Количество машин в день', default=0)
-    region = models.CharField(u'Регион', max_length=200)
+    region = models.MultiPolygonField()
 
     class Meta:
         verbose_name = verbose_name_plural = u'Пешеходный трафик'
@@ -32,10 +33,10 @@ class PedTraffic(models.Model):
 
 
 class CarTraffic (models.Model):
-    geom = models.CharField(max_length=200)
+    geom = models.MultiLineStringField()
     traf_day = models.IntegerField(u'Количество машин в день', default=0)
     shape_leng = models.FloatField(u'Протяженность участка, км', default=0)
-    region = models.CharField(u'Регион', max_length=200)
+    region = models.MultiPolygonField()
 
     class Meta:
         verbose_name = verbose_name_plural = u'Автомобильный трафик'
