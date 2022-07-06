@@ -36,7 +36,7 @@ class CarTraffic (models.Model):
     geom = models.MultiLineStringField()
     traf_day = models.IntegerField(u'Количество машин в день', default=0)
     shape_leng = models.FloatField(u'Протяженность участка, км', default=0)
-    region = models.MultiPolygonField()
+    region = models.CharField(u'Регион', max_length=200)
 
     class Meta:
         verbose_name = verbose_name_plural = u'Автомобильный трафик'
