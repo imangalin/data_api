@@ -15,16 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from django.conf.urls.i18n import i18n_patterns
 
-from .router import router
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
 ]
-
-urlpatterns += i18n_patterns(
-    path('mapi/', include(router.urls)),
-    prefix_default_language=False,
-)
