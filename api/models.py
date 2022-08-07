@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.gis.db.models import PointField
-from django.contrib.gis.geos import Point
 
 
 class Building (models.Model):
@@ -13,7 +12,7 @@ class Building (models.Model):
     h3_12 = models.CharField('H3_12', max_length=20)
     h3_13 = models.CharField('H3_13', max_length=20)
     geom = PointField()
-    # region = models.CharField()
+    region = models.ForeignKey('account.DataRegion', on_delete=models.SET_NULL, related_name='buildings', null=True)
 
     class Meta:
         verbose_name = u'Строение'
@@ -31,7 +30,7 @@ class PedTraffic(models.Model):
     long = models.DecimalField(max_digits=22, decimal_places=12)
     h3_12 = models.CharField('H3_12', max_length=20)
     h3_13 = models.CharField('H3_13', max_length=20)
-    # region = models.CharField()
+    region = models.ForeignKey('account.DataRegion', on_delete=models.SET_NULL, related_name='ped', null=True)
 
     class Meta:
         verbose_name = verbose_name_plural = u'Пешеходный трафик'
@@ -48,7 +47,7 @@ class CarTraffic(models.Model):
     long = models.DecimalField(max_digits=22, decimal_places=12)
     h3_12 = models.CharField('H3_12', max_length=20)
     h3_13 = models.CharField('H3_13', max_length=20)
-    # region = models.CharField()
+    region = models.ForeignKey('account.DataRegion', on_delete=models.SET_NULL, related_name='cars', null=True)
 
     class Meta:
         verbose_name = verbose_name_plural = u'Автомобильный трафик'

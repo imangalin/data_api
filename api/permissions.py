@@ -15,18 +15,6 @@ class IsExpired(BasePermission):
         return has_permission
 
 
-class RegionAvailable(BasePermission):
-    message = 'This region is not available for your account'
-
-    def has_permission(self, request, view):
-        has_permission = False
-        if hasattr(request.user, 'account'):
-            #нужен модуль для проверки вхождения координат из GET в account.region
-            #план: в регионе храним полигон с его границами, сперва проверяем, входит ли полигон из GET в эти границы,
-            #затем отправляем запрос на данные
-            pass
-
-
 class DataTypeAvailable(BasePermission):
     message = 'This data type is not available for your account'
 
