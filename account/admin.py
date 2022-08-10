@@ -9,7 +9,7 @@ class AccountAdmin(admin.ModelAdmin):
     search_fields = ('name', )
     ordering = ('-access_expiration', )
     filter_horizontal = ('data_type', 'region', )
-    actions = ['update_active', 'create_token', ]
+    actions = ['update_active', 'update_request_count', 'create_token']
 
     @admin.action(description='Обновить статусы')
     def update_active(self, request, queryset):
@@ -20,6 +20,13 @@ class AccountAdmin(admin.ModelAdmin):
     def create_token(self, request, queryset):
         for account in queryset:
             account.create_token()
+
+    @admin.action(description='Принудительно обнулить счетчик запросов')
+    def update_request_count(self, request, queryset):
+        for account in queryset:
+            account.request_day_count = 0
+            account.request_month_count = 0
+            account.save()
 
 
 @admin.register(DataRegion)

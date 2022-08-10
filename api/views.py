@@ -36,6 +36,8 @@ class BaseListView(APIView):
         parser_classes = [JSONParser]
 
         self.request.user.account.request_total_count += 1
+        self.request.user.account.request_day_count += 1
+        self.request.user.account.request_month_count += 1
         self.request.user.account.save()
 
         param_func = request.data.get('func', None)
@@ -67,7 +69,7 @@ class BaseListView(APIView):
 
             # population>1000_and_population<2000
 
-        return HttpResponse(serialize('geojson', buildings[:param_limit],
+        return HttpResponse(serialize('geojson', buildings[:int(param_limit)],
                                       geometry_field='geom',
                                       fields=self.get_fields()))
 

@@ -76,6 +76,17 @@ class Account(models.Model):
             self.token = token.key
             self.save()
 
+    def clear_day_count(self):
+        self.request_day_count = 0
+        self.save()
+
+    def clear_month_count(self):
+        self.request_month_count = 0
+        self.save()
+
+    def allowed_data_types(self):
+        return self.data_type.values_list('slug', flat=True)
+
     def save(self, *args, **kwargs):
         if not self.pk:
             user = get_user_model()._default_manager.create_user(username=self.name)

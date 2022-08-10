@@ -9,7 +9,7 @@ class IsExpired(BasePermission):
     def has_permission(self, request, view):
         has_permission = False
         if hasattr(request.user, 'account'):
-            if request.user.account.access_expiration >= date.today():
+            if request.user.account.active:
                 has_permission = True
 
         return has_permission
@@ -22,7 +22,7 @@ class DataTypeAvailable(BasePermission):
         has_permission = False
         if hasattr(request.user, 'account'):
             data_type = request.path.split('/')[2]
-            if data_type in request.user.account.data_type.values_list('slug', flat=True):
+            if data_type in request.user.account.allowed_data_types():
                 has_permission = True
 
         return has_permission
@@ -37,7 +37,8 @@ class RequestLimitPermission(BasePermission):
             account = request.user.account
             if (
                 account.request_day_count <= account.request_day_limit
-                & account.request_total_count <= account.request_total_limit
+                and account.request_month_count <= account.request_month_count
+                and account.request_total_count <= account.request_total_limit
             ):
                 has_permission = True
 
