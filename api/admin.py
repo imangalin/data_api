@@ -4,17 +4,14 @@ from .models import Building, CarTraffic, PedTraffic
 
 @admin.register(Building)
 class BuildingsAdmin(admin.ModelAdmin):
-    list_display = ('storey', 'household')
-    # search_fields = ('region', )
+    list_display = ("storey", "household")
 
 
 @admin.register(CarTraffic)
 class CarTrafficAdmin(admin.ModelAdmin):
-    list_display = ('geom', 'traffic_total')
-    # search_fields = ('region', )
+    list_display = ("traffic_total",)
 
 
 @admin.register(PedTraffic)
 class PedTrafficAdmin(admin.ModelAdmin):
-    list_display = ('geom', 'traffic_total')
-    # search_fields = ('region', )
+    list_display = ("traffic_total",)

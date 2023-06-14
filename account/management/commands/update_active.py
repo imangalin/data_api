@@ -7,4 +7,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         for account in Account.objects.all():
             account.check_active()
-        self.stdout.write(self.style.SUCCESS('Successfully checked all accounts activity status'))
+        self.stdout.write(
+            self.style.SUCCESS("Successfully checked all accounts activity status")
+        )

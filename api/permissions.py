@@ -4,11 +4,11 @@ from rest_framework.permissions import BasePermission
 
 
 class IsExpired(BasePermission):
-    message = 'Your account has been expired'
+    message = "Your account has been expired"
 
-    def has_permission(self, request, view):
+    def has_permission(self, request, view) -> bool:
         has_permission = False
-        if hasattr(request.user, 'account'):
+        if hasattr(request.user, "account"):
             if request.user.account.active:
                 has_permission = True
 
@@ -16,12 +16,12 @@ class IsExpired(BasePermission):
 
 
 class DataTypeAvailable(BasePermission):
-    message = 'This data type is not available for your account'
+    message = "This data type is not available for your account"
 
-    def has_permission(self, request, view):
+    def has_permission(self, request, view) -> bool:
         has_permission = False
-        if hasattr(request.user, 'account'):
-            data_type = request.path.split('/')[2]
+        if hasattr(request.user, "account"):
+            data_type = request.path.split("/")[2]
             if data_type in request.user.account.allowed_data_types():
                 has_permission = True
 
@@ -29,16 +29,18 @@ class DataTypeAvailable(BasePermission):
 
 
 class RequestLimitPermission(BasePermission):
-    message = 'Your request limit has been exceeded'
+    message = "Your request limit has been exceeded"
 
-    def has_permission(self, request, view):
+    def has_permission(self, request, view) -> bool:
         has_permission = False
-        if hasattr(request.user, 'account'):
+        if hasattr(request.user, "account"):
             account = request.user.account
-            if (
-                account.request_day_count <= account.request_day_limit
-                and account.request_month_count <= account.request_month_count
-                and account.request_total_count <= account.request_total_limit
+            if all(
+                [
+                    account.check_daily_access(),
+                    account.check_monthly_access(),
+                    account.check_total_access(),
+                ]
             ):
                 has_permission = True
 
