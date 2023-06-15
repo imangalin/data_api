@@ -1,0 +1,47 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgis/postgis:14-3.3
+    ports:
+      - "15432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [ node.role == manager ]
+      restart_policy:
+        condition: on-failure
+    networks:
+      - web
+    env_file:
+      - .env
+
+  backend:
+    build:
+      context: .
+    depends_on:
+      - db
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - web
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/data_api
+    command: python manage.py runserver 0.0.0.0:8000
+    env_file:
+      - .env
+
+volumes:
+  postgres-data:
+  .:
+
+networks:
+  web:
+    driver: overlay
+    attachable: true
