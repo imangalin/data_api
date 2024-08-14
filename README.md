@@ -1,5 +1,6 @@
 _API for geomarketing systems built using Django, PostgreSQL and Uber H3.  
 Accepting coordinates of a point or a polygon returns GeoJSON with data on the selected topic: buildings, car or pedestrian traffic_
+First versin in our company)
 
 ## Create Database
 
